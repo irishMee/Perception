@@ -249,10 +249,14 @@ def pr2_mover(object_list):
         for object in object_list:
             labels.append(object.label)
             points_arr = ros_to_pcl(object.cloud).to_array()
-            centroids.append(np.asscalar(np.mean(points_arr, axis=0))[:3])
+            centroids.append(np.mean(points_arr, axis=0)[:3])
        
         #pick_pose is the centroid of the target object 
-        pick_pose = centroids[i]
+        pick_pose_x = np.asscalar(centroids[i][0])
+        pick_pose_y = np.asscalar(centroids[i][1])
+        pick_pose_z = np.asscalar(centroids[i][2])
+        #pick_pose built tuple
+        pick_pose = (pick_pose_x, pick_pose_y, pick_pose_z)
 
         # TODO: Create 'place_pose' for the object
         for i in range(0, len(dropbox_param)):
